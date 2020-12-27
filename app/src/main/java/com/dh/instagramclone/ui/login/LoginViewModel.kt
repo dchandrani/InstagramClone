@@ -17,20 +17,25 @@ class LoginViewModel @ViewModelInject constructor(@Assisted private val state: S
 
     fun loginClicked(userName: String, password: String) {
         if (userName.isBlank()) {
-            showInvalidInputMessage("Please enter valid Username")
+            showInvalidInputMessage("Please enter valid Username",InvalidField.INVALID_USER_NAME)
             return
         }
         if (password.isBlank()) {
-            showInvalidInputMessage("Password can not be empty")
+            showInvalidInputMessage("Password can not be empty",InvalidField.INVALID_PASSWORD)
             return
         }
     }
 
-    private fun showInvalidInputMessage(message: String) = viewModelScope.launch {
-        loginChannel.send(LogInEvent.ShowInvalidMessage(message))
+    private fun showInvalidInputMessage(message: String, invalid: InvalidField) = viewModelScope.launch {
+        loginChannel.send(LogInEvent.ShowInvalidMessage(message, invalid))
     }
 
     sealed class LogInEvent {
-        data class ShowInvalidMessage(val message: String) : LogInEvent()
+        data class ShowInvalidMessage(val message: String, val invalid: InvalidField) : LogInEvent()
+    }
+
+    enum class InvalidField{
+        INVALID_USER_NAME,
+        INVALID_PASSWORD,
     }
 }

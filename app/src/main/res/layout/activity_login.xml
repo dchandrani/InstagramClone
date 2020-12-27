@@ -19,33 +19,50 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:viewBindingIgnore="true"/>
 
-    <EditText
-        android:id="@+id/edt_user_name"
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
         android:layout_marginStart="32dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="32dp"
-        android:ems="10"
-        android:hint="Username"
-        android:inputType="textPersonName"
-        android:singleLine="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        android:id="@+id/til_user_name">
 
-    <EditText
-        android:id="@+id/edt_password"
-        android:layout_width="0dp"
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:ems="10"
+            android:inputType="textEmailAddress"
+            android:singleLine="true"
+            android:hint="Username"
+            android:id="@+id/edt_user_name"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:ems="10"
-        android:hint="Password"
-        android:inputType="textPassword"
-        android:singleLine="true"
-        app:layout_constraintEnd_toEndOf="@+id/edt_user_name"
-        app:layout_constraintStart_toStartOf="@+id/edt_user_name"
-        app:layout_constraintTop_toBottomOf="@+id/edt_user_name" />
+        app:layout_constraintEnd_toEndOf="@+id/til_user_name"
+        app:layout_constraintStart_toStartOf="@+id/til_user_name"
+        app:layout_constraintTop_toBottomOf="@+id/til_user_name"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="32dp"
+        android:id="@+id/til_password"
+        app:passwordToggleEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:ems="10"
+            android:inputType="textPassword"
+            android:singleLine="true"
+            android:hint="Password"
+            android:id="@+id/edt_password"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/btn_login"
@@ -54,9 +71,9 @@
         android:layout_marginTop="16dp"
         android:paddingHorizontal="16dp"
         android:text="Login"
-        app:layout_constraintEnd_toEndOf="@+id/edt_password"
-        app:layout_constraintStart_toStartOf="@+id/edt_password"
-        app:layout_constraintTop_toBottomOf="@+id/edt_password" />
+        app:layout_constraintEnd_toEndOf="@+id/til_password"
+        app:layout_constraintStart_toStartOf="@+id/til_password"
+        app:layout_constraintTop_toBottomOf="@+id/til_password" />
 
     <TextView
         android:id="@+id/textView2"
