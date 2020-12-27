@@ -9,7 +9,6 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
-
 class LoginViewModel @ViewModelInject constructor(@Assisted private val state: SavedStateHandle) :
     ViewModel() {
 
