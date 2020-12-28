@@ -5,12 +5,8 @@ import android.content.Context
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.core.widget.addTextChangedListener
-import androidx.core.widget.doOnTextChanged
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-import android.widget.Button
-import android.widget.EditText
-import androidx.core.widget.addTextChangedListener
 
 val <T> T.exhaustive: T
     get() = this
