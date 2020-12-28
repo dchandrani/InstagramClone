@@ -14,22 +14,28 @@ class RegisterViewModel @ViewModelInject constructor() : ViewModel() {
     fun registerClicked(email: String, password: String, confirmPassword: String) {
         if (email.isBlank()) {
             println("invalid email")
-            sendInvalidInputMessage("Email cannot be empty")
+            sendInvalidInputMessage("Email cannot be empty", InvalidInputFor.INVALID_EMAIL)
             return
         }
 
         if (password.isBlank()) {
-            sendInvalidInputMessage("Password cannot be empty")
+            sendInvalidInputMessage("Password cannot be empty", InvalidInputFor.INVALID_PASSWORD)
             return
         }
 
         if (confirmPassword.isBlank()) {
-            sendInvalidInputMessage("Confirm Password cannot be empty")
+            sendInvalidInputMessage(
+                "Confirm Password cannot be empty",
+                InvalidInputFor.INVALID_CONFIRM_PASSWORD
+            )
             return
         }
 
         if (password != confirmPassword) {
-            sendInvalidInputMessage("Password do not match")
+            sendInvalidInputMessage(
+                "Password do not match",
+                InvalidInputFor.CONFIRM_PASSWORD_MISMATCH
+            )
             return
         }
 
@@ -37,17 +43,27 @@ class RegisterViewModel @ViewModelInject constructor() : ViewModel() {
     }
 
     private fun registerUser(email: String, password: String) = viewModelScope.launch {
-        registerEventChannel.send(RegisterViewModel.RegisterEvent.RegistrationSuccessful)
+        registerEventChannel.send(RegisterEvent.RegistrationSuccessful)
     }
 
-    private fun sendInvalidInputMessage(text: String) = viewModelScope.launch {
-        registerEventChannel.send(RegisterViewModel.RegisterEvent.ShowInvalidInputMessage(text))
-    }
+    private fun sendInvalidInputMessage(text: String, invalidFor: InvalidInputFor) =
+        viewModelScope.launch {
+            registerEventChannel.send(
+                RegisterEvent.ShowInvalidInputMessage(
+                    text,
+                    invalidFor
+                )
+            )
+        }
 
 
     sealed class RegisterEvent {
-        data class ShowInvalidInputMessage(val message: String) : RegisterEvent()
+        data class ShowInvalidInputMessage(val message: String, val invalidFor: InvalidInputFor) :
+            RegisterEvent()
+
         object RegistrationSuccessful : RegisterEvent()
         data class RegistrationFailed(val message: String) : RegisterEvent()
     }
 }
+
+enum class InvalidInputFor { INVALID_EMAIL, INVALID_PASSWORD, INVALID_CONFIRM_PASSWORD, CONFIRM_PASSWORD_MISMATCH }
